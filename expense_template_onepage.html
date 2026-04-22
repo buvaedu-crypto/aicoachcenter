@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>지출결의서</title>
+  <style>
+    @page { size: A4; margin: 10mm; }
+
+    * { box-sizing: border-box; }
+
+    html, body {
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background: #f4f4f4;
+      font-family: "Malgun Gothic", "맑은 고딕", Arial, sans-serif;
+      color: #111;
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
+    }
+
+    .page {
+      width: 210mm;
+      min-height: 297mm;
+      margin: 0 auto;
+      background: #fff;
+      padding: 10mm 10mm 9mm;
+      overflow: hidden;
+    }
+
+    .title-box {
+      border: 2px solid #111;
+      text-align: center;
+      padding: 8px 0;
+      font-size: 24px;
+      letter-spacing: 6px;
+      font-weight: 500;
+      margin-bottom: 14px;
+    }
+
+    .approval-wrap {
+      display: flex;
+      justify-content: flex-end;
+      margin-bottom: 14px;
+    }
+
+    .approval-table {
+      width: 62%;
+      border-collapse: collapse;
+      table-layout: fixed;
+      font-size: 11px;
+    }
+
+    .approval-table td,
+    .approval-table th {
+      border: 1px solid #111;
+      text-align: center;
+      height: 24px;
+      padding: 0;
+      font-weight: 400;
+      vertical-align: middle;
+    }
+
+    .approval-label {
+      width: 34px;
+      line-height: 1.15;
+      word-break: keep-all;
+    }
+
+    .main-table {
+      width: 100%;
+      border-collapse: collapse;
+      table-layout: fixed;
+      font-size: 13px;
+    }
+
+    .main-table td,
+    .main-table th {
+      border: 1px solid #111;
+      padding: 4px 6px;
+      height: 28px;
+      font-weight: 400;
+      vertical-align: middle;
+      word-break: break-word;
+    }
+
+    .center { text-align: center; }
+    .right { text-align: right; }
+
+    .amount-line {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      white-space: nowrap;
+    }
+
+    .amount-left {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      overflow: hidden;
+      min-width: 0;
+    }
+
+    .amount-hangul {
+      flex: 1;
+      min-width: 0;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .currency-cell {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      white-space: nowrap;
+      gap: 8px;
+    }
+
+    .currency-number {
+      flex: 1;
+      text-align: right;
+    }
+
+    .ledger-label {
+      width: 70px;
+      text-align: center;
+      font-size: 15px;
+      letter-spacing: 3px;
+      line-height: 1.7;
+    }
+
+    .line-item-row td {
+      height: 38px;
+    }
+
+    .bottom-box {
+      border: 1px solid #111;
+      border-top: none;
+      min-height: 190px;
+      padding: 28px 24px 20px;
+      position: relative;
+    }
+
+    .request-text {
+      font-size: 15px;
+      margin-bottom: 46px;
+    }
+
+    .request-date {
+      text-align: center;
+      font-size: 15px;
+      margin-bottom: 40px;
+    }
+
+    .claimant {
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+      gap: 10px;
+      font-size: 15px;
+      margin-bottom: 56px;
+      padding-right: 18px;
+    }
+
+    .claimant-name {
+      min-width: 88px;
+      text-align: center;
+      border-bottom: 1px solid transparent;
+    }
+
+    .company-name {
+      text-align: center;
+      font-size: 22px;
+      letter-spacing: 0.5px;
+    }
+
+    .muted { color: #333; }
+
+    tr, td, th, .title-box, .approval-wrap, .bottom-box {
+      page-break-inside: avoid;
+    }
+
+    @media print {
+      html, body {
+        width: 210mm;
+        height: 297mm;
+        background: #fff;
+      }
+
+      body {
+        margin: 0;
+      }
+
+      .page {
+        margin: 0;
+        padding: 8mm 8mm 8mm;
+        min-height: auto;
+        height: 277mm;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <div class="title-box">지출결의서</div>
+
+    <div class="approval-wrap">
+      <table class="approval-table">
+        <colgroup>
+          <col style="width:34px" />
+          <col />
+          <col />
+          <col />
+          <col style="width:34px" />
+          <col />
+          <col />
+          <col />
+        </colgroup>
+        <tr>
+          <td class="approval-label" rowspan="3">신<br>청<br>부<br>서</td>
+          <th>입안</th>
+          <th>심사</th>
+          <th>결정</th>
+          <td class="approval-label" rowspan="3">관<br>리<br>부<br>서</td>
+          <th>입안</th>
+          <th>심사</th>
+          <th>결정</th>
+        </tr>
+        <tr>
+          <td></td><td></td><td></td>
+          <td></td><td></td><td></td>
+        </tr>
+        <tr>
+          <td style="height:44px"></td><td></td><td></td>
+          <td></td><td></td><td></td>
+        </tr>
+      </table>
+    </div>
+
+    <table class="main-table">
+      <colgroup>
+        <col style="width:12%" />
+        <col style="width:22%" />
+        <col style="width:14%" />
+        <col style="width:20%" />
+        <col style="width:14%" />
+        <col style="width:18%" />
+      </colgroup>
+      <tr>
+        <td class="center">부서명</td>
+        <td>{{department}}</td>
+        <td class="center">직급</td>
+        <td>{{position}}</td>
+        <td class="center">성명</td>
+        <td>{{requester}}</td>
+      </tr>
+      <tr>
+        <td class="center">지출금액</td>
+        <td colspan="5">
+          <div class="amount-line">
+            <div class="amount-left">
+              <span>일금</span>
+              <span class="amount-hangul">{{amount_hangul}}</span>
+            </div>
+            <div class="currency-cell" style="width:200px;">
+              <span>₩</span>
+              <span class="currency-number">{{total_amount}}</span>
+              <span>-</span>
+            </div>
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <td class="ledger-label" rowspan="9">내&nbsp;&nbsp;역</td>
+        <td class="center">적요</td>
+        <td class="center" colspan="2">공급가액</td>
+        <td class="center">부가세액</td>
+        <td class="center">비고</td>
+      </tr>
+      <tr class="line-item-row">
+        <td>{{summary_text}}</td>
+        <td class="right" colspan="2">{{supply_amount}}</td>
+        <td class="right">{{vat_amount}}</td>
+        <td>{{notes}}</td>
+      </tr>
+      <tr class="line-item-row"><td></td><td colspan="2"></td><td></td><td></td></tr>
+      <tr class="line-item-row"><td></td><td colspan="2"></td><td></td><td></td></tr>
+      <tr class="line-item-row"><td></td><td colspan="2"></td><td></td><td></td></tr>
+      <tr class="line-item-row"><td></td><td colspan="2"></td><td></td><td></td></tr>
+      <tr class="line-item-row"><td></td><td colspan="2"></td><td></td><td></td></tr>
+      <tr class="line-item-row"><td></td><td colspan="2"></td><td></td><td></td></tr>
+      <tr>
+        <td colspan="3"></td>
+        <td class="center">총액</td>
+        <td colspan="2">
+          <div class="currency-cell">
+            <span>₩</span>
+            <span class="currency-number">{{total_amount}}</span>
+            <span>-</span>
+          </div>
+        </td>
+      </tr>
+    </table>
+
+    <div class="bottom-box">
+      <div class="request-text">위 금액을 청구하오니 결재 바랍니다.</div>
+      <div class="request-date">{{request_date}}</div>
+      <div class="claimant">
+        <span>청구인 :</span>
+        <span class="claimant-name">{{requester}}</span>
+        <span>(인)</span>
+      </div>
+      <div class="company-name">주식회사 ㅇㅇㅇ</div>
+    </div>
+  </div>
+</body>
+</html>
